@@ -25,7 +25,9 @@ RSpec.describe 'admin application show page' do
       street_address: '789 maple',
       state: 'CO',
       zip: 12365,
-      status: "In progress"
+      description: 'Dogs r neat',
+      status: "Pending"
+
     )
 
     @pet_1.applications << @app_1
@@ -70,5 +72,20 @@ RSpec.describe 'admin application show page' do
     expect(page).to_not have_button("Reject #{@pet_1.name}")
     expect(page).to have_button("Reject #{@pet_2.name}")
     expect(page).to have_content("#{@pet_1.name} is rejected")
+  end
+
+  it 'applications are independent' do
+    @pet_1.applications << @app_2
+
+    visit "/admin/applications/#{@app_1.id}"
+
+    click_button("Reject #{@pet_1.name}")
+
+    visit "/admin/applications/#{@app_2.id}"
+
+    expect(page).to_not have_content("#{@pet_1name} is rejected")
+    expect(page).to have_button("Approve #{@pet_4.name}")
+    expect(page).to have_button("Reject #{@pet_4.name}")
+
   end
 end

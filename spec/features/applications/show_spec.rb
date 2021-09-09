@@ -31,6 +31,7 @@ RSpec.describe 'Application Show Page' do
   it 'can display application info' do
     PetApplication.create!(pet: @dog1, application: @app)
     PetApplication.create!(pet: @dog2, application: @app)
+    @app.update!(description: 'Test desc, normally nil')
 
     visit "/applications/#{@app.id}"
 
