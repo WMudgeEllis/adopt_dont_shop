@@ -82,16 +82,10 @@ RSpec.describe 'admin application show page' do
     click_button("Reject #{@pet_1.name}")
 
     visit "/admin/applications/#{@app_2.id}"
-    # save_and_open_page
+
     expect(page).to_not have_content("#{@pet_1name} is rejected")
     expect(page).to have_button("Approve #{@pet_4.name}")
     expect(page).to have_button("Reject #{@pet_4.name}")
 
   end
-#   When there are two applications in the system for the same pet
-# When I visit the admin application show page for one of the applications
-# And I approve or reject the pet for that application
-# When I visit the other application's admin show page
-# Then I do not see that the pet has been accepted or rejected for that application
-# And instead I see buttons to approve or reject the pet for this specific application
 end
